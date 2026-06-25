@@ -1,7 +1,5 @@
 privel-trade/
 │
-├── scripts/
-│   └── .gitkeep
 ├── .github/
 │   └── workflows/
 │
@@ -19,37 +17,27 @@ privel-trade/
 │   ├── 11-Security.md
 │   └── CHANGELOG.md
 │
+├──  design/
+├── branding/
+│   └── .gitkeep
+├── icons/
+│   └── .gitkeep
+├── logos/
+│   └── .gitkeep
+├── mockups/
+│   └── .gitkeep
+├── wireframes/
+│   └── .gitkeep
+└── .gitkeep
+│
 ├── backend/
 │   ├── src/
-│   │   ├── modules/
-│   │   ├── common/
-│   │   ├── config/
-│   │   ├── database/
-│   │   ├── middleware/
-│   │   ├── types/
-│   │   └── main.ts
-│   │
-│   ├── tests/
 │   ├── prisma/
-│   ├── package.json
-│   └── tsconfig.json
+│   └── tests/
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── app/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── layouts/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   ├── store/
-│   │   ├── types/
-│   │   ├── assets/
-│   │   └── styles/
-│   │
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.ts
+│   └── public/
 │
 ├── database/
 │   └── .gitkeep
@@ -63,10 +51,17 @@ privel-trade/
 ├── infrastructure/
 │   └── .gitkeep
 │
+├── scripts/
+│   └── .gitkeep
+│
 ├── tests/
 │   └── .gitkeep
 │
+├── .env.example
+├── .editorconfig
 ├── .gitignore
-├── README.md
+├── .prettierrc
+├── docker-compose.yml
 ├── LICENSE
-└── docker-compose.yml
+├── README.md
+└── CONTRIBUTING.md
