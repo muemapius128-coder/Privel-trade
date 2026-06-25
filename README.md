@@ -1,4 +1,4 @@
-pivel-trade/
+privel-trade/
 │
 ├── scripts/
 │   └── .gitkeep
