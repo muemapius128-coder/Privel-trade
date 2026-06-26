@@ -18,17 +18,17 @@ privel-trade/
 │   └── CHANGELOG.md
 │
 ├──  design/
-├── branding/
+│   ├── branding/
+│   │   └── .gitkeep
+│   ├── icons/
+│   │   └── .gitkeep
+│   ├── logos/
+│   │   └── .gitkeep
+│   ├── mockups/
+│   │   └── .gitkeep
+│   ├── wireframes/
+│   │   └── .gitkeep
 │   └── .gitkeep
-├── icons/
-│   └── .gitkeep
-├── logos/
-│   └── .gitkeep
-├── mockups/
-│   └── .gitkeep
-├── wireframes/
-│   └── .gitkeep
-└── .gitkeep
 │
 ├── backend/
 │   ├── src/
@@ -65,3 +65,4 @@ privel-trade/
 ├── LICENSE
 ├── README.md
 └── CONTRIBUTING.md
+
