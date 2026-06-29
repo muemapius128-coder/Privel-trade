@@ -15,47 +15,173 @@ privel-trade/
 │   ├── 09-Broker-Architecture.md
 │   ├── 10-Development-Roadmap.md
 │   ├── 11-Security.md
+│   ├── 12-Research-Lab.md
+│   ├── 13-Trading-Engine.md
+│   ├── 14-Risk-Management.md
+│   ├── 15-Deployment.md
 │   └── CHANGELOG.md
 │
-├──  design/
+├── design/
 │   ├── branding/
-│   │   └── .gitkeep
 │   ├── icons/
-│   │   └── .gitkeep
 │   ├── logos/
-│   │   └── .gitkeep
 │   ├── mockups/
-│   │   └── .gitkeep
 │   ├── wireframes/
-│   │   └── .gitkeep
+│   ├── ui-kit/
+│   ├── illustrations/
 │   └── .gitkeep
 │
 ├── backend/
 │   ├── src/
+│   │   ├── modules/
+│   │   │   ├── auth/
+│   │   │   ├── users/
+│   │   │   ├── brokers/
+│   │   │   ├── trading/
+│   │   │   ├── ai/
+│   │   │   ├── analytics/
+│   │   │   ├── journal/
+│   │   │   ├── market/
+│   │   │   ├── research/
+│   │   │   ├── backtesting/
+│   │   │   ├── risk/
+│   │   │   ├── notifications/
+│   │   │   └── settings/
+│   │   │
+│   │   ├── common/
+│   │   ├── config/
+│   │   ├── middleware/
+│   │   ├── database/
+│   │   ├── utils/
+│   │   ├── interfaces/
+│   │   ├── types/
+│   │   └── main.ts
+│   │
 │   ├── prisma/
-│   └── tests/
+│   ├── tests/
+│   ├── package.json
+│   └── tsconfig.json
 │
 ├── frontend/
 │   ├── src/
-│   └── public/
-│
-├── database/
-│   └── .gitkeep
-│
-├── broker/
-│   └── .gitkeep
+│   │   ├── app/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   ├── store/
+│   │   ├── types/
+│   │   ├── assets/
+│   │   ├── themes/
+│   │   ├── charts/
+│   │   └── styles/
+│   │
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.ts
 │
 ├── ai/
+│   ├── README.md
+│   │
+│   ├── agents/
+│   │   ├── athena/
+│   │   ├── market-analyst/
+│   │   ├── strategy-advisor/
+│   │   ├── research-agent/
+│   │   ├── execution-supervisor/
+│   │   ├── risk-manager/
+│   │   ├── journal-coach/
+│   │   └── psychology-coach/
+│   │
+│   ├── research/
+│   │   ├── concept-discovery/
+│   │   ├── hypothesis-engine/
+│   │   ├── strategy-generator/
+│   │   ├── optimizer/
+│   │   ├── validation/
+│   │   ├── reports/
+│   │   └── datasets/
+│   │
+│   ├── backtesting/
+│   │   ├── engine/
+│   │   ├── datasets/
+│   │   ├── simulations/
+│   │   ├── optimization/
+│   │   └── reports/
+│   │
+│   ├── learning/
+│   │   ├── books/
+│   │   ├── concepts/
+│   │   ├── observations/
+│   │   ├── market-memory/
+│   │   ├── screenshots/
+│   │   └── notes/
+│   │
+│   ├── prompts/
+│   ├── models/
+│   ├── memory/
+│   ├── embeddings/
+│   ├── datasets/
+│   ├── knowledge/
+│   │   ├── economics/
+│   │   ├── psychology/
+│   │   ├── statistics/
+│   │   ├── smart-money/
+│   │   ├── market-microstructure/
+│   │   ├── research-papers/
+│   │   └── trading-books/
+│   │
+│   └── strategies/
+│       ├── active/
+│       ├── experimental/
+│       ├── archived/
+│       └── generated/
+│
+├── broker/
+│   ├── README.md
+│   ├── common/
+│   ├── mt5/
+│   ├── deriv/
+│   ├── hfm/
+│   ├── exness/
+│   ├── pocket-option/
+│   ├── dev-io/
+│   └── future/
+│
+├── database/
+│   ├── migrations/
+│   ├── seeds/
+│   ├── backups/
 │   └── .gitkeep
 │
 ├── infrastructure/
-│   └── .gitkeep
+│   ├── docker/
+│   ├── nginx/
+│   ├── kubernetes/
+│   ├── monitoring/
+│   ├── logging/
+│   ├── metrics/
+│   └── deployment/
+│
+├── shared/
+│   ├── constants/
+│   ├── interfaces/
+│   ├── types/
+│   └── utils/
 │
 ├── scripts/
-│   └── .gitkeep
+│   ├── setup/
+│   ├── database/
+│   ├── deployment/
+│   └── maintenance/
 │
 ├── tests/
-│   └── .gitkeep
+│   ├── unit/
+│   ├── integration/
+│   ├── e2e/
+│   ├── performance/
+│   └── security/
 │
 ├── .env.example
 ├── .editorconfig
@@ -65,4 +191,3 @@ privel-trade/
 ├── LICENSE
 ├── README.md
 └── CONTRIBUTING.md
-
