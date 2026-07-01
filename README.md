@@ -86,6 +86,12 @@ privel-trade/
 │   │
 │   ├── agents/
 │   │   ├── athena/
+│   │   ├── da-vinci/
+│   │   ├── mercury/
+│   │   ├── atlas/
+│   │   ├── aegis/
+│   │   ├── argus/
+│   │   ├── echo/
 │   │   ├── market-analyst/
 │   │   ├── strategy-advisor/
 │   │   ├── research-agent/
@@ -123,6 +129,7 @@ privel-trade/
 │   ├── memory/
 │   ├── embeddings/
 │   ├── datasets/
+│   │
 │   ├── knowledge/
 │   │   ├── economics/
 │   │   ├── psychology/
@@ -140,14 +147,73 @@ privel-trade/
 │
 ├── broker/
 │   ├── README.md
+│   │
 │   ├── common/
-│   ├── mt5/
-│   ├── deriv/
-│   ├── hfm/
-│   ├── exness/
-│   ├── pocket-option/
-│   ├── dev-io/
+│   │   ├── authentication/
+│   │   ├── interfaces/
+│   │   ├── market-data/
+│   │   ├── orders/
+│   │   ├── positions/
+│   │   ├── websocket/
+│   │   └── utils/
+│   │
+│   ├── forex/
+│   │   ├── mt5/
+│   │   ├── exness/
+│   │   ├── hfm/
+│   │   ├── deriv/
+│   │   ├── oanda/
+│   │   ├── ic-markets/
+│   │   ├── pepperstone/
+│   │   ├── xm/
+│   │   ├── fp-markets/
+│   │   └── eightcap/
+│   │
+│   ├── crypto/
+│   │   ├── binance/
+│   │   ├── bybit/
+│   │   ├── okx/
+│   │   ├── kraken/
+│   │   ├── coinbase/
+│   │   ├── bitget/
+│   │   ├── kucoin/
+│   │   ├── gate-io/
+│   │   ├── mexc/
+│   │   └── crypto-com/
+│   │
+│   ├── stocks/
+│   │   ├── alpaca/
+│   │   ├── interactive-brokers/
+│   │   ├── tradestation/
+│   │   ├── robinhood/
+│   │   ├── charles-schwab/
+│   │   └── future/
+│   │
+│   ├── futures/
+│   │   ├── tradovate/
+│   │   ├── ninja-trader/
+│   │   ├── interactive-brokers/
+│   │   └── future/
+│   │
+│   ├── options/
+│   │   ├── pocket-option/
+│   │   ├── quotex/
+│   │   ├── nadex/
+│   │   └── future/
+│   │
 │   └── future/
+│
+├── market-data/
+│   ├── forex/
+│   ├── crypto/
+│   ├── stocks/
+│   ├── futures/
+│   ├── commodities/
+│   ├── indices/
+│   ├── economic-calendar/
+│   ├── news/
+│   ├── sentiment/
+│   └── historical/
 │
 ├── database/
 │   ├── migrations/
