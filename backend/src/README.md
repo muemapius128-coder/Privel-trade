@@ -1,12 +1,18 @@
-# Backend Source
+# Source Code
 
-The `src` directory contains the complete application source code for the Privel Trade backend.
-
-All business logic, APIs, services, modules, and shared utilities are organized here using a modular architecture.
+> The `src` directory contains the complete implementation of the Privel Trade backend. Every business capability, AI service, trading engine, broker integration, and system utility originates here.
 
 ---
 
-## Directory Structure
+# Purpose
+
+The source code is organized using a modular architecture, allowing each feature of the platform to evolve independently while remaining tightly integrated through shared services and interfaces.
+
+This architecture improves scalability, maintainability, testing, and future expansion.
+
+---
+
+# Directory Structure
 
 ```text
 src/
@@ -23,20 +29,47 @@ src/
 
 ---
 
-## Purpose
+# Responsibilities
 
-This directory is responsible for:
+The source code manages:
 
-- Application startup
 - Business logic
-- REST APIs
 - Authentication
-- Trading services
-- AI services
-- Broker integrations
+- Trading execution
+- Broker communication
+- AI orchestration
+- Market intelligence
+- Risk analysis
+- Portfolio management
+- Notifications
 - Shared utilities
-- Database communication
 
 ---
 
-Every feature of the platform begins inside the `src` directory.
+# Design Philosophy
+
+The source code follows modern software engineering principles:
+
+- Modular Design
+- Separation of Concerns
+- Reusability
+- High Performance
+- Enterprise Scalability
+- AI-First Architecture
+- Security by Design
+
+---
+
+# Entry Point
+
+The application starts from:
+
+```
+main.ts
+```
+
+which initializes the Privel Trade backend, loads configurations, registers modules, establishes database connections, and starts all required services.
+
+---
+
+**Status:** 🚧 Active Development
