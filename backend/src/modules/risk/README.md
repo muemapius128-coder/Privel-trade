@@ -1,23 +1,16 @@
-# Risk Management Module
+# Risk Module
 
-The Risk Management Module protects trading capital by enforcing predefined risk rules.
+The Risk module protects capital by evaluating and controlling trading risk.
 
 ## Responsibilities
 
 - Position sizing
-- Maximum daily loss
-- Maximum account drawdown
-- Stop-loss enforcement
-- Take-profit management
-- Exposure control
-- Correlation analysis
-- Portfolio risk monitoring
-- Leverage management
-- Risk scoring
+- Exposure management
+- Drawdown protection
+- Margin monitoring
+- Stop-loss validation
+- Portfolio risk
+- Risk alerts
+- Capital preservation
 
-## Future Features
-
-- AI adaptive risk management
-- Dynamic position sizing
-- Portfolio optimization
-- Market stress testing
+Every trade passes through the Risk module before execution.
