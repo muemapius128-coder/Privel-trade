@@ -1,16 +1,18 @@
-# Modules
+# Business Modules
 
-> The `modules` directory contains the core business domains of the Privel Trade platform.
+The Modules layer contains the core business capabilities of the Privel Trade platform.
 
-Each module is responsible for a specific business capability and operates independently while communicating with other modules through well-defined interfaces and shared services.
+Each module represents a specific business domain and is responsible for implementing its own logic while collaborating with other modules through well-defined interfaces, events, and shared services.
 
-This modular architecture enables scalability, maintainability, and rapid feature development.
+This modular architecture enables scalability, maintainability, testability, and continuous evolution of the platform.
 
 ---
 
 # Purpose
 
-The Modules layer contains all domain-specific business logic, ensuring each responsibility is isolated into its own component.
+The Modules layer implements the business intelligence and operational workflows that power Privel Trade.
+
+Unlike the Core layer, which provides reusable infrastructure, the Modules layer contains domain-specific logic responsible for trading, market intelligence, artificial intelligence, research, analytics, portfolio management, broker communication, and user management.
 
 Every module can evolve independently without affecting the rest of the platform.
 
@@ -24,15 +26,16 @@ modules/
 ├── users/
 ├── brokers/
 ├── trading/
+├── market/
 ├── ai/
 ├── analytics/
-├── journal/
-├── market/
 ├── research/
 ├── backtesting/
+├── journal/
 ├── risk/
 ├── notifications/
-└── settings/
+├── settings/
+└── README.md
 ```
 
 ---
@@ -40,71 +43,236 @@ modules/
 # Module Responsibilities
 
 ## Authentication
-Handles identity, authentication, authorization, JWT management, and account security.
+
+Responsible for user identity, authentication, authorization, session management, JWT handling, account security, and access control.
+
+---
 
 ## Users
-Manages user profiles, preferences, workspaces, subscriptions, and permissions.
+
+Manages user accounts, profiles, preferences, subscriptions, permissions, workspaces, and portfolio ownership.
+
+---
 
 ## Brokers
-Provides a unified interface for connecting to Forex, Crypto, Stocks, Futures, and Options brokers and exchanges.
+
+Provides a unified interface for communicating with supported Forex, Cryptocurrency, Stocks, Futures, and Options brokers and exchanges.
+
+Responsible for:
+
+- Account synchronization
+- Order execution
+- Position management
+- Portfolio synchronization
+- Broker health monitoring
+
+---
 
 ## Trading
-Responsible for order execution, position management, trade lifecycle, and execution monitoring.
 
-## AI
-Coordinates AI agents, market reasoning, predictive models, and autonomous decision support.
+The Trading module transforms validated trading decisions into executable market orders.
 
-## Analytics
-Processes trading statistics, performance metrics, dashboards, and reporting.
+Responsibilities include:
 
-## Journal
-Stores trading history, notes, screenshots, psychology tracking, and post-trade analysis.
+- Order lifecycle
+- Position lifecycle
+- Trade execution
+- Portfolio interaction
+- Execution monitoring
+
+---
 
 ## Market
-Collects and processes live market data, economic events, news, and sentiment analysis.
+
+Collects, processes, and distributes financial market information.
+
+Supports:
+
+- Forex
+- Cryptocurrency
+- Stocks
+- Futures
+- Commodities
+- Indices
+- Economic calendar
+- Market news
+- Sentiment analysis
+
+---
+
+## Artificial Intelligence
+
+The intelligence engine of Privel Trade.
+
+Responsible for:
+
+- Market analysis
+- Pattern recognition
+- Strategy generation
+- Opportunity discovery
+- Predictive analytics
+- AI reasoning
+- Decision support
+- Continuous learning
+
+---
+
+## Analytics
+
+Transforms raw operational and trading data into actionable insights.
+
+Includes:
+
+- Trading statistics
+- Performance metrics
+- Portfolio analytics
+- Risk analytics
+- AI performance evaluation
+- Dashboards
+- Reports
+
+---
 
 ## Research
-Supports strategy discovery, hypothesis testing, quantitative research, and experimentation.
+
+The research laboratory of the platform.
+
+Responsible for:
+
+- Market research
+- Strategy development
+- Hypothesis testing
+- Quantitative research
+- Concept validation
+- Experimentation
+- Knowledge generation
+
+---
 
 ## Backtesting
-Runs historical simulations and evaluates strategy performance using historical market data.
+
+Evaluates trading strategies using historical market data before live deployment.
+
+Supports:
+
+- Historical simulation
+- Strategy comparison
+- Optimization
+- Performance validation
+
+---
+
+## Journal
+
+Maintains a comprehensive record of trading activity, AI decisions, observations, screenshots, psychology notes, and lessons learned.
+
+Supports continuous improvement for both traders and AI agents.
+
+---
 
 ## Risk
-Monitors portfolio exposure, position sizing, drawdowns, volatility, and capital preservation.
+
+Protects capital through intelligent risk management.
+
+Responsibilities include:
+
+- Position sizing
+- Portfolio exposure
+- Drawdown protection
+- Volatility analysis
+- Risk scoring
+- Stop-loss management
+- Capital allocation
+
+---
 
 ## Notifications
-Handles alerts, emails, push notifications, WebSocket events, and system messaging.
+
+Delivers important platform events.
+
+Supports:
+
+- Email
+- SMS
+- Push notifications
+- Webhooks
+- WebSocket events
+- In-app notifications
+
+---
 
 ## Settings
-Manages application configuration, user preferences, integrations, feature flags, and personalization.
+
+Centralized configuration for users and the platform.
+
+Includes:
+
+- User preferences
+- Trading preferences
+- Security settings
+- Notification settings
+- Integrations
+- Feature flags
+- Platform configuration
 
 ---
 
 # Design Principles
 
-Every module follows:
+Every business module follows the same engineering standards:
 
 - Single Responsibility Principle
-- Loose Coupling
 - High Cohesion
+- Loose Coupling
 - Dependency Injection
+- Event-Driven Communication
+- Domain-Driven Design
+- Secure by Design
+- AI-Ready Architecture
 - Independent Testing
-- Reusability
 - Enterprise Scalability
 
 ---
 
-# Communication
+# Module Communication
 
-Modules communicate through:
+Business modules communicate through well-defined abstractions rather than direct dependencies.
+
+Communication mechanisms include:
 
 - Services
 - Interfaces
-- Events
+- Domain Events
 - Shared Utilities
 - Dependency Injection
 
-This approach minimizes dependencies while maintaining flexibility and extensibility.
+Common functionality should reside in:
+
+- Core
+- Security
+- Integrations
+- Common
+
+rather than being duplicated across business modules.
+
+---
+
+# Vision
+
+The Modules layer represents the operational intelligence of the Privel Trade platform.
+
+Together, these modules enable the platform to:
+
+- Observe global financial markets
+- Analyze market behavior
+- Conduct quantitative research
+- Generate and validate trading strategies
+- Assess and manage risk
+- Execute trades across multiple brokers and exchanges
+- Learn continuously from historical and live market activity
+- Deliver actionable financial intelligence to users
+
+By keeping each business domain independent yet interoperable, Privel Trade remains scalable, maintainable, secure, and adaptable to future technologies and market opportunities.
 
 ---
 
