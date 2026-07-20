@@ -1,23 +1,16 @@
-# Journal Module
+# Analytics Module
 
-The Journal Module records every trading decision made by both the user and AI.
+The Analytics module transforms trading data into actionable insights.
 
 ## Responsibilities
 
-- Trade history
-- Position history
-- Strategy used
-- AI reasoning
-- Screenshot storage
-- Emotional notes
-- Performance review
-- Mistake tracking
-- Improvement suggestions
+- Performance analysis
 - Trading statistics
+- Portfolio analytics
+- Risk metrics
+- AI performance
+- Dashboard metrics
+- Reporting
+- Visualization
 
-## Future Features
-
-- AI coaching
-- Weekly performance reports
-- Behavioral analysis
-- Trading habit scoring
+Analytics helps users evaluate and improve trading performance.
