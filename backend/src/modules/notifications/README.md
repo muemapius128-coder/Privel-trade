@@ -1,23 +1,16 @@
 # Notifications Module
 
-The Notifications Module delivers important alerts to users in real time.
+The Notifications module delivers important information to users and services.
 
 ## Responsibilities
 
-- Trade alerts
-- Signal notifications
-- Risk warnings
-- Margin alerts
-- Profit targets
-- Stop-loss notifications
-- Market news alerts
-- AI recommendations
-- System status notifications
-- Email and mobile notifications
-
-## Future Features
-
-- Telegram integration
-- Discord integration
-- SMS alerts
+- Email notifications
 - Push notifications
+- SMS alerts
+- WebSocket events
+- Trade alerts
+- Risk alerts
+- System notifications
+- AI recommendations
+
+Notifications ensure users remain informed in real time.
