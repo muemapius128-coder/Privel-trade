@@ -1,23 +1,15 @@
 # Research Module
 
-The Research Module allows the AI to discover, evaluate and improve trading strategies through continuous learning.
+The Research module enables strategy discovery, experimentation, and quantitative analysis.
 
 ## Responsibilities
 
-- Market research
-- Strategy discovery
-- Concept testing
-- Hypothesis generation
-- Strategy validation
-- Pattern recognition
-- Historical analysis
-- Market structure research
-- Liquidity research
-- AI knowledge expansion
+- Strategy research
+- Hypothesis testing
+- Quantitative analysis
+- Market studies
+- Data exploration
+- Experiment management
+- Research reports
 
-## Future Features
-
-- Automatic research papers
-- Strategy ranking
-- AI-generated market reports
-- Autonomous research agents
+The Research module provides knowledge used by AI and Backtesting.
