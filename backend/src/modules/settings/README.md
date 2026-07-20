@@ -1,23 +1,16 @@
 # Settings Module
 
-The Settings Module manages user preferences and platform configuration.
+The Settings module manages platform configuration and personalization.
 
 ## Responsibilities
 
-- User profile
-- Broker settings
-- API keys
-- Notification preferences
-- Security settings
+- User settings
 - Trading preferences
+- Security settings
+- Notification settings
 - AI preferences
-- Theme settings
-- Language settings
-- Account configuration
+- Theme selection
+- Feature configuration
+- Platform customization
 
-## Future Features
-
-- Workspace customization
-- Cloud synchronization
-- Backup and restore
-- Multi-device settings
+The Settings module allows users to personalize their Privel Trade experience.
