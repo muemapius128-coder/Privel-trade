@@ -1,24 +1,15 @@
 # Backtesting Module
 
-The Backtesting Module evaluates trading strategies using historical market data before they are deployed to live markets.
+The Backtesting module evaluates trading strategies using historical market data.
 
 ## Responsibilities
 
-- Historical data simulation
+- Historical simulation
 - Strategy validation
-- Trade execution simulation
-- Performance measurement
-- Risk analysis
-- Equity curve generation
-- Drawdown analysis
-- Win/Loss statistics
-- Parameter optimization
-- Walk-forward testing
+- Performance metrics
+- Optimization
+- Scenario testing
+- Risk evaluation
+- Report generation
 
-## Future Features
-
-- Multi-market backtesting
-- Tick-by-tick simulation
-- AI strategy evaluation
-- Monte Carlo simulation
-- Portfolio backtesting
+Backtesting allows strategies to be tested before deployment.
