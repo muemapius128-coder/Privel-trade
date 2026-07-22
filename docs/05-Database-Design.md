@@ -908,6 +908,204 @@ The Market Domain is designed to support:
 
 ---
 
+# 4. Trading Domain
+
+## Purpose
+
+The Trading Domain is the execution core of the Privel Trade platform.
+
+It transforms market intelligence, AI recommendations, and user decisions into secure, validated, and broker-executed trades while maintaining complete traceability throughout the trading lifecycle.
+
+The Trading Domain is designed to support retail traders, professional traders, quantitative strategies, autonomous AI trading agents, and future institutional trading operations.
+
+---
+
+## Objectives
+
+The Trading Domain is responsible for:
+
+- Order management
+- Trade execution
+- Position management
+- Execution monitoring
+- Order validation
+- Order routing
+- Smart order execution
+- Position lifecycle management
+- Trade reconciliation
+- Execution reporting
+- Performance tracking
+- Broker synchronization
+
+---
+
+# Core Entities
+
+| Entity | Purpose |
+|---------|---------|
+| Orders | Trading orders submitted by users or AI |
+| Executions | Executed order records |
+| Trades | Completed trades |
+| Positions | Open positions |
+| PositionHistory | Position lifecycle history |
+| OpenOrders | Active pending orders |
+| ClosedOrders | Completed or cancelled orders |
+| OrderHistory | Complete order audit trail |
+| TradeAllocations | Allocation of executed trades |
+| ExecutionReports | Broker execution confirmations |
+
+---
+
+# Trading Lifecycle
+
+Every trade follows a standardized execution pipeline.
+
+```text
+Market Data
+      │
+      ▼
+Trading Signal
+      │
+      ▼
+Strategy Validation
+      │
+      ▼
+Risk Validation
+      │
+      ▼
+Order Creation
+      │
+      ▼
+Broker Routing
+      │
+      ▼
+Execution
+      │
+      ▼
+Position Update
+      │
+      ▼
+Portfolio Update
+      │
+      ▼
+Analytics
+      │
+      ▼
+Journal
+```
+
+---
+
+# Order Types
+
+The Trading Domain supports:
+
+- Market Order
+- Limit Order
+- Stop Order
+- Stop Limit Order
+- Trailing Stop
+- Take Profit
+- Stop Loss
+- OCO (One Cancels Other)
+- Bracket Orders
+
+---
+
+# Position Types
+
+Supported position types include:
+
+- Long
+- Short
+- Hedged
+- Multi-leg
+- Options Positions
+- Futures Positions
+
+---
+
+# Execution Features
+
+Execution capabilities include:
+
+- Smart Order Routing
+- Partial fills
+- Multiple executions
+- Slippage tracking
+- Latency monitoring
+- Execution quality analysis
+- Automatic retries
+- Broker failover
+
+---
+
+# Trade Validation
+
+Before execution, every trade undergoes:
+
+- Authentication
+- Authorization
+- Market validation
+- Risk validation
+- Margin validation
+- Position validation
+- Compliance validation
+- Broker availability check
+
+---
+
+# Performance Metrics
+
+The Trading Domain records:
+
+- Entry price
+- Exit price
+- Average execution price
+- Spread
+- Slippage
+- Commission
+- Swap
+- Profit/Loss
+- Holding time
+- Execution latency
+
+---
+
+# Security Features
+
+The Trading Domain implements:
+
+- Digital audit trails
+- Secure execution requests
+- Order signing
+- Transaction validation
+- Broker authentication
+- Encryption in transit
+- Replay protection
+- Event logging
+
+---
+
+# Future Expansion
+
+The Trading Domain is designed to support:
+
+- High-frequency trading
+- Algorithmic execution
+- AI autonomous trading
+- Institutional order management
+- FIX Protocol connectivity
+- Multi-account execution
+- Cross-broker execution
+- Distributed execution engines
+
+---
+
+## Trading Domain Summary
+
+The Trading Domain is the operational engine of Privel Trade. It converts intelligence into execution by securely managing every stage of the trading lifecycle—from signal generation to portfolio updates—while maintaining reliability, transparency, and institutional-grade execution standards.
+
 ## Market Domain Summary
 
 The Market Domain is the heartbeat of the Privel Trade platform. Every trading decision, AI prediction, research experiment, backtest, portfolio valuation, and risk calculation depends on the high-quality market information managed within this domain.
