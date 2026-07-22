@@ -519,6 +519,191 @@ The Identity Domain consists of the following entities.
 
 ---
 
+
+# 2. Broker Domain
+
+## Purpose
+
+The Broker Domain provides a unified abstraction layer between Privel Trade and external financial institutions.
+
+Rather than being tightly coupled to a specific broker or exchange, the platform standardizes communication through a modular broker architecture. This enables users to trade across multiple asset classes while maintaining a consistent trading experience.
+
+The Broker Domain supports Forex, CFDs, Stocks, ETFs, Options, Futures, Commodities, Indices, and Cryptocurrency exchanges.
+
+---
+
+## Objectives
+
+The Broker Domain is responsible for:
+
+- Broker integration
+- Trading account management
+- Secure API authentication
+- Account synchronization
+- Balance synchronization
+- Position synchronization
+- Order routing
+- Market data connectivity
+- WebSocket communication
+- Connection monitoring
+- Broker capability management
+- Failover handling
+
+---
+
+# Core Entities
+
+| Entity | Purpose |
+|---------|---------|
+| Brokers | Registered broker definitions |
+| BrokerAccounts | User broker accounts |
+| TradingAccounts | Individual trading accounts |
+| BrokerCredentials | Secure API credentials |
+| BrokerConnections | Active broker connections |
+| AccountBalances | Current balances |
+| AccountSettings | Broker-specific settings |
+| BrokerCapabilities | Supported trading features |
+| ConnectionLogs | Connection history |
+| BrokerEvents | Broker event records |
+
+---
+
+# Relationships
+
+```text
+User
+ │
+ ▼
+Broker Account
+ │
+ ▼
+Trading Account
+ │
+ ├───────────────┐
+ ▼               ▼
+Orders       Positions
+ │               │
+ ▼               ▼
+Executions   Portfolio
+
+Broker
+ │
+ ▼
+Capabilities
+
+Broker
+ │
+ ▼
+Connections
+```
+
+---
+
+# Supported Asset Classes
+
+The Broker Domain supports:
+
+- Forex
+- Stocks
+- ETFs
+- Options
+- Futures
+- Commodities
+- Indices
+- Cryptocurrency
+- CFDs
+
+---
+
+# Supported Broker Categories
+
+## Forex
+
+- Exness
+- HFM
+- IC Markets
+- Pepperstone
+- XM
+- FP Markets
+- Eightcap
+- OANDA
+
+---
+
+## Cryptocurrency
+
+- Binance
+- Bybit
+- OKX
+- Kraken
+- Coinbase
+- Bitget
+- KuCoin
+- Gate.io
+- MEXC
+
+---
+
+## Stocks
+
+- Alpaca
+- Interactive Brokers
+- TradeStation
+- Charles Schwab
+- Robinhood
+
+---
+
+## Futures
+
+- Tradovate
+- NinjaTrader
+- Interactive Brokers
+
+---
+
+## Options
+
+- Pocket Option
+- Quotex
+- Nadex
+
+---
+
+# Security Features
+
+The Broker Domain implements:
+
+- Encrypted API credentials
+- OAuth support
+- Secure token storage
+- Automatic credential rotation
+- Connection monitoring
+- Request signing
+- Rate limiting
+- Audit logging
+- Connection encryption
+
+---
+
+# Future Expansion
+
+The Broker Domain is designed to support:
+
+- Additional brokers
+- Institutional trading
+- Prime brokerage
+- FIX protocol
+- DMA connectivity
+- Multi-account management
+- Broker redundancy
+- Smart order routing
+
+---
+
+## Broker Domain Summary
+
+The Broker Domain provides a secure, scalable, and broker-independent connectivity layer that allows Privel Trade to communicate with financial institutions while maintaining a consistent internal trading architecture.
 # Relationships
 
 ```text
