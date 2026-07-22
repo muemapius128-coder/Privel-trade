@@ -701,6 +701,216 @@ The Broker Domain is designed to support:
 
 ---
 
+
+# 3. Market Domain
+
+## Purpose
+
+The Market Domain serves as the central source of financial market information for the Privel Trade platform.
+
+It collects, normalizes, validates, stores, and distributes real-time and historical market data across all platform modules, including Trading, AI, Research, Analytics, Risk Management, and Backtesting.
+
+The Market Domain provides a single source of truth for all supported financial instruments regardless of the originating broker or exchange.
+
+---
+
+## Objectives
+
+The Market Domain is responsible for:
+
+- Live market data
+- Historical market data
+- Symbol management
+- Asset classification
+- Tick data collection
+- Candlestick generation
+- Order book management
+- Economic calendar
+- Financial news
+- Market sentiment
+- Corporate actions
+- Market holidays
+- Trading sessions
+- Data validation
+- Data normalization
+
+---
+
+# Core Entities
+
+| Entity | Purpose |
+|---------|---------|
+| Markets | Supported financial markets |
+| Symbols | Tradable instruments |
+| Assets | Asset definitions |
+| Quotes | Real-time prices |
+| Candlesticks | OHLCV historical data |
+| TickData | Tick-by-tick market data |
+| OrderBooks | Bid and ask depth |
+| EconomicCalendar | Economic events |
+| News | Financial news |
+| MarketSentiment | Market sentiment indicators |
+| CorporateActions | Dividends, splits and corporate events |
+| TradingSessions | Market trading hours |
+
+---
+
+# Relationships
+
+```text
+Market
+ │
+ ▼
+Symbols
+ │
+ ├───────────────┬────────────────┬───────────────┐
+ ▼               ▼                ▼               ▼
+Quotes      Candlesticks      TickData      OrderBooks
+ │
+ ▼
+Trading Engine
+ │
+ ├──────────────┬──────────────┬───────────────┐
+ ▼              ▼              ▼               ▼
+AI         Research      Analytics        Risk
+```
+
+---
+
+# Supported Markets
+
+The Market Domain supports:
+
+- Foreign Exchange (Forex)
+- Cryptocurrency
+- Stocks
+- ETFs
+- Commodities
+- Indices
+- Futures
+- Options
+- Bonds
+
+---
+
+# Market Data Types
+
+The platform stores multiple categories of market information.
+
+### Real-Time
+
+- Bid
+- Ask
+- Last Price
+- Spread
+- Volume
+- Liquidity
+
+---
+
+### Historical
+
+- OHLCV Candles
+- Tick History
+- Volume History
+- Volatility
+- Session Data
+
+---
+
+### Fundamental
+
+- Earnings
+- Dividends
+- Splits
+- Company Financials
+- Economic Indicators
+
+---
+
+### Alternative
+
+- News
+- Market Sentiment
+- Social Sentiment
+- AI Signals
+
+---
+
+# Data Processing
+
+Incoming market data passes through several processing stages.
+
+```text
+Broker / Exchange
+        │
+        ▼
+Market Feed
+        │
+        ▼
+Validation
+        │
+        ▼
+Normalization
+        │
+        ▼
+Storage
+        │
+        ▼
+Distribution
+        │
+ ┌──────┼──────────┬──────────────┬──────────────┐
+ ▼      ▼          ▼              ▼
+Trading AI     Research      Analytics
+```
+
+---
+
+# Security Features
+
+The Market Domain implements:
+
+- Feed validation
+- Duplicate detection
+- Timestamp verification
+- Data integrity checks
+- Secure transport
+- Access control
+- Audit logging
+
+---
+
+# Performance Features
+
+The architecture is optimized for:
+
+- High-frequency updates
+- Low-latency delivery
+- Horizontal scaling
+- Intelligent caching
+- Data compression
+- Efficient indexing
+- Stream processing
+
+---
+
+# Future Expansion
+
+The Market Domain is designed to support:
+
+- Additional exchanges
+- Alternative data providers
+- Satellite data
+- Blockchain analytics
+- Macroeconomic datasets
+- Institutional market feeds
+- AI-generated market intelligence
+
+---
+
+## Market Domain Summary
+
+The Market Domain is the heartbeat of the Privel Trade platform. Every trading decision, AI prediction, research experiment, backtest, portfolio valuation, and risk calculation depends on the high-quality market information managed within this domain.
 ## Broker Domain Summary
 
 The Broker Domain provides a secure, scalable, and broker-independent connectivity layer that allows Privel Trade to communicate with financial institutions while maintaining a consistent internal trading architecture.
