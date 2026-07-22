@@ -46,25 +46,6 @@ The database follows Domain-Driven Design (DDD), modular architecture, and secur
 
 # Database Design Principles
 
-The database architecture is built around the following principles:
-
-- Security First
-- Performance by Design
-- AI Native
-- Modular Domains
-- Event Driven
-- Horizontal Scalability
-- Zero Trust Security
-- Encryption Everywhere
-- Auditability
-- Broker Independence
-- High Availability
-- Disaster Recovery Ready
-- Cloud Native
-- Future Proof
-
-- # Design Principles
-
 The Privel Trade database is designed to meet the requirements of a modern AI-powered financial trading platform. Every database component follows strict architectural principles to ensure reliability, scalability, maintainability, and security.
 
 ---
