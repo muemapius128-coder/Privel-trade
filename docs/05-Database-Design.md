@@ -214,6 +214,230 @@ The database is designed to provide a secure, scalable, and extensible foundatio
 
 ---
 
+# Database Technology
+
+Privel Trade is built on a modern, enterprise-grade database architecture designed to support high-frequency trading, artificial intelligence, real-time analytics, and institutional-level security.
+
+Rather than relying on a single database technology, the platform uses specialized components for transactional data, caching, object storage, and future analytical workloads. This approach ensures maximum performance, reliability, and scalability.
+
+---
+
+## Primary Database
+
+### PostgreSQL
+
+PostgreSQL serves as the primary relational database for the Privel Trade platform.
+
+### Responsibilities
+
+- User management
+- Authentication
+- Broker accounts
+- Trading accounts
+- Orders
+- Positions
+- Portfolios
+- Risk management
+- Research projects
+- AI metadata
+- Notifications
+- Audit logs
+
+### Why PostgreSQL
+
+- ACID-compliant transactions
+- High reliability
+- Advanced indexing
+- JSON support
+- Full-text search
+- Strong security
+- Excellent scalability
+- Mature ecosystem
+- Enterprise-ready
+
+---
+
+## Object-Relational Mapping (ORM)
+
+### Prisma ORM
+
+Prisma provides a modern, type-safe interface between the application and the PostgreSQL database.
+
+### Responsibilities
+
+- Database schema management
+- Database migrations
+- Type-safe queries
+- Relationship mapping
+- Data validation
+- Developer productivity
+
+### Benefits
+
+- Reduced development time
+- Improved maintainability
+- Strong typing
+- Simplified migrations
+- Lower risk of SQL-related errors
+
+---
+
+## Cache Layer
+
+### Redis
+
+Redis provides ultra-fast in-memory data storage to reduce database load and improve application performance.
+
+### Responsibilities
+
+- Session storage
+- JWT blacklist
+- Market data caching
+- API response caching
+- Queue management
+- Rate limiting
+- WebSocket state
+- AI response caching
+
+### Benefits
+
+- Low latency
+- Reduced database load
+- Improved scalability
+- Faster user experience
+
+---
+
+## Object Storage
+
+Large files are stored outside the relational database.
+
+Examples include:
+
+- AI datasets
+- Strategy reports
+- Research documents
+- Trade screenshots
+- Historical datasets
+- User uploads
+- Generated analytics reports
+
+This approach keeps the relational database optimized for structured transactional data.
+
+---
+
+## Database Migrations
+
+Database schema evolution is managed through version-controlled migrations.
+
+Migration principles include:
+
+- Version tracking
+- Rollback capability
+- Backward compatibility
+- Automated deployment
+- Controlled schema evolution
+
+---
+
+## Backup and Recovery
+
+The platform supports enterprise-grade backup and recovery strategies.
+
+Features include:
+
+- Automated backups
+- Incremental backups
+- Full backups
+- Point-in-time recovery
+- Disaster recovery planning
+- Multi-region replication
+
+---
+
+## High Availability
+
+The architecture is designed for continuous operation.
+
+Capabilities include:
+
+- Primary database
+- Read replicas
+- Automatic failover
+- Connection pooling
+- Load balancing
+- Database replication
+
+---
+
+## Monitoring
+
+Database health and performance are continuously monitored.
+
+Metrics include:
+
+- Query performance
+- CPU utilization
+- Memory usage
+- Active connections
+- Slow queries
+- Storage utilization
+- Replication status
+- Cache efficiency
+
+---
+
+## Security
+
+Security is integrated into every layer of the database architecture.
+
+Measures include:
+
+- Encryption at rest
+- Encryption in transit
+- Role-Based Access Control (RBAC)
+- Secure credential management
+- Audit logging
+- Least privilege access
+- Secret rotation
+- Continuous monitoring
+
+---
+
+## Future Expansion
+
+The database architecture is designed to support future growth, including:
+
+- Additional financial markets
+- New brokers and exchanges
+- AI model evolution
+- Institutional account structures
+- Distributed microservices
+- Multi-region deployments
+- Data warehousing
+- Advanced analytics
+
+---
+
+## Technology Stack Summary
+
+| Component | Technology |
+|-----------|------------|
+| Primary Database | PostgreSQL |
+| ORM | Prisma ORM |
+| Cache | Redis |
+| Object Storage | Cloud Object Storage |
+| Database Migrations | Prisma Migrate |
+| Backup Strategy | Automated Backups |
+| Monitoring | Metrics & Logging |
+| Security | Encryption + RBAC + Audit Logs |
+
+---
+
+## Summary
+
+The Privel Trade database technology stack is designed to provide a secure, scalable, resilient, and high-performance foundation for the entire platform. By combining PostgreSQL, Prisma ORM, Redis, and enterprise infrastructure practices, the platform is capable of supporting real-time trading, artificial intelligence, institutional-grade security, and long-term growth.
+
 # Database Domains
 
 The Privel Trade database is organized into independent business domains.
