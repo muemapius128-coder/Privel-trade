@@ -76,11 +76,8 @@ export class WalkForwardOptimizer {
 
   constructor(
     private readonly parameterOptimizer: ParameterOptimizer,
-
     private readonly gridSearch: GridSearch,
-
     private readonly geneticOptimizer: GeneticOptimizer,
-
     private readonly bayesianOptimizer: BayesianOptimizer,
   ) {}
 
@@ -144,42 +141,105 @@ export class WalkForwardOptimizer {
 
   /**
    * Generates rolling training/testing windows.
-   *
-   * Implemented in Part 2.
    */
   private generateWindows(
     request: OptimizationRequest,
   ): WalkForwardWindow[] {
-    private generateWindows(
-  request: OptimizationRequest,
-): WalkForwardWindow[] {
+    const windows: WalkForwardWindow[] = [];
 
-    // Part 2 implementation here
+    const trainingBars = 1000;
+    const testingBars = 200;
+    const step = testingBars;
 
-}
+    const totalBars =
+      request.walkForwardWindows
+        ? trainingBars +
+          testingBars *
+            request.walkForwardWindows
+        : 3000;
 
-private barToDate(
+    let id = 1;
+
+    for (
+      let trainStart = 0;
+      trainStart +
+        trainingBars +
+        testingBars <=
+      totalBars;
+      trainStart += step
+    ) {
+      const trainEnd =
+        trainStart +
+        trainingBars -
+        1;
+
+      const testStart =
+        trainEnd + 1;
+
+      const testEnd =
+        testStart +
+        testingBars -
+        1;
+
+      windows.push({
+        id,
+
+        trainingStart:
+          this.barToDate(
+            trainStart,
+          ),
+
+        trainingEnd:
+          this.barToDate(
+            trainEnd,
+          ),
+
+        testingStart:
+          this.barToDate(
+            testStart,
+          ),
+
+        testingEnd:
+          this.barToDate(
+            testEnd,
+          ),
+
+        trainingBars,
+
+        testingBars,
+      });
+
+      id++;
+    }
+
+    this.logger.log(
+      `Generated ${windows.length} walk-forward windows.`,
+    );
+
+    return windows;
+  }
+
+  /**
+   * Converts a historical bar index into a Date.
+   */
+  private barToDate(
     barIndex: number,
-): Date {
+  ): Date {
+    const base = new Date(
+      '2020-01-01T00:00:00Z',
+    );
 
-    // Part 2 helper here
+    base.setMinutes(
+      base.getMinutes() +
+        barIndex,
+    );
 
-}
-
-/**
- * Executes optimization +
- * out-of-sample validation.
- *
- * Implemented in Part 3.
- */
-private async processWindow(...)
+    return base;
   }
 
   /**
    * Executes optimization +
    * out-of-sample validation.
-   *
-   * Implemented in Part 3.
    */
   private async processWindow(
     window: WalkForwardWindow,
@@ -192,8 +252,6 @@ private async processWindow(...)
 
   /**
    * Produces the final report.
-   *
-   * Implemented in Parts 5 & 6.
    */
   private buildReport(
     results: WalkForwardWindowResult[],
