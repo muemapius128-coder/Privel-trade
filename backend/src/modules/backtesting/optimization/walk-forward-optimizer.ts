@@ -150,9 +150,29 @@ export class WalkForwardOptimizer {
   private generateWindows(
     request: OptimizationRequest,
   ): WalkForwardWindow[] {
-    throw new Error(
-      'generateWindows() not implemented.',
-    );
+    private generateWindows(
+  request: OptimizationRequest,
+): WalkForwardWindow[] {
+
+    // Part 2 implementation here
+
+}
+
+private barToDate(
+    barIndex: number,
+): Date {
+
+    // Part 2 helper here
+
+}
+
+/**
+ * Executes optimization +
+ * out-of-sample validation.
+ *
+ * Implemented in Part 3.
+ */
+private async processWindow(...)
   }
 
   /**
