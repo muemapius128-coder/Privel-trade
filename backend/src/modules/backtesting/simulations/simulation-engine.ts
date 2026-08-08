@@ -1213,4 +1213,219 @@ export class SimulationEngine {
 
     return marketValue;
   }
-  
+    /**
+   * Creates a deep-enough copy of the
+   * portfolio for strategy evaluation.
+   */
+  private clonePortfolio(
+    portfolio: SimulationPortfolio,
+  ): SimulationPortfolio {
+    return {
+      initialCapital:
+        portfolio.initialCapital,
+
+      cash:
+        portfolio.cash,
+
+      equity:
+        portfolio.equity,
+
+      realizedPnl:
+        portfolio.realizedPnl,
+
+      unrealizedPnl:
+        portfolio.unrealizedPnl,
+
+      totalFees:
+        portfolio.totalFees,
+
+      peakEquity:
+        portfolio.peakEquity,
+
+      maxDrawdown:
+        portfolio.maxDrawdown,
+
+      positions:
+        portfolio.positions.map(
+          (position) => ({
+            ...position,
+
+            openedAt:
+              new Date(
+                position.openedAt,
+              ),
+
+            updatedAt:
+              new Date(
+                position.updatedAt,
+              ),
+          }),
+        ),
+    };
+  }
+
+  /**
+   * Builds the final simulation result.
+   */
+  private buildResult(
+    portfolio: SimulationPortfolio,
+    orders: SimulationOrder[],
+    fills: SimulationFill[],
+    equityCurve: Array<{
+      timestamp: Date;
+      equity: number;
+    }>,
+  ): SimulationResult {
+    const finalCapital =
+      portfolio.equity;
+
+    const totalReturn =
+      finalCapital -
+      portfolio.initialCapital;
+
+    const totalReturnPercent =
+      portfolio.initialCapital === 0
+        ? 0
+        : (
+            totalReturn /
+            portfolio.initialCapital
+          ) *
+          100;
+
+    let winningTrades = 0;
+
+    let losingTrades = 0;
+
+    for (
+      const position of
+      portfolio.positions
+    ) {
+      if (
+        position.realizedPnl > 0
+      ) {
+        winningTrades++;
+      } else if (
+        position.realizedPnl < 0
+      ) {
+        losingTrades++;
+      }
+    }
+
+    return {
+      initialCapital:
+        portfolio.initialCapital,
+
+      finalCapital,
+
+      totalReturn,
+
+      totalReturnPercent,
+
+      realizedPnl:
+        portfolio.realizedPnl,
+
+      unrealizedPnl:
+        portfolio.unrealizedPnl,
+
+      totalFees:
+        portfolio.totalFees,
+
+      totalTrades:
+        fills.length,
+
+      winningTrades,
+
+      losingTrades,
+
+      maxDrawdown:
+        portfolio.maxDrawdown,
+
+      maxDrawdownPercent:
+        this.calculateDrawdownPercent(
+          portfolio,
+        ),
+
+      equityCurve,
+
+      fills,
+
+      positions:
+        portfolio.positions.map(
+          (position) => ({
+            ...position,
+          }),
+        ),
+
+      orders:
+        orders.map(
+          (order) => ({
+            ...order,
+          }),
+        ),
+    };
+  }
+
+  /**
+   * Calculates maximum drawdown
+   * as a percentage of peak equity.
+   */
+  private calculateDrawdownPercent(
+    portfolio: SimulationPortfolio,
+  ): number {
+    if (
+      portfolio.peakEquity <= 0
+    ) {
+      return 0;
+    }
+
+    return (
+      portfolio.maxDrawdown /
+      portfolio.peakEquity
+    ) *
+    100;
+  }
+
+  /**
+   * Creates an empty result when
+   * no market bars are supplied.
+   */
+  private createEmptyResult(
+    config: Required<SimulationConfig>,
+  ): SimulationResult {
+    return {
+      initialCapital:
+        config.initialCapital,
+
+      finalCapital:
+        config.initialCapital,
+
+      totalReturn: 0,
+
+      totalReturnPercent: 0,
+
+      realizedPnl: 0,
+
+      unrealizedPnl: 0,
+
+      totalFees: 0,
+
+      totalTrades: 0,
+
+      winningTrades: 0,
+
+      losingTrades: 0,
+
+      maxDrawdown: 0,
+
+      maxDrawdownPercent: 0,
+
+      equityCurve: [],
+
+      fills: [],
+
+      positions: [],
+
+      orders: [],
+    };
+  }
+}
