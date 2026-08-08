@@ -35,4 +35,3 @@ steps:
 
   - name: Build backend
     run: npm run build
-```
