@@ -592,3 +592,625 @@ export class SimulationEngine {
         'PENDING',
     };
   }
+    /**
+   * Executes an order against the
+   * current market bar.
+   */
+  private executeOrder(
+    order: SimulationOrder,
+    bar: MarketBar,
+    portfolio: SimulationPortfolio,
+    config: Required<SimulationConfig>,
+  ): SimulationFill | null {
+    if (
+      order.status !== 'PENDING'
+    ) {
+      return null;
+    }
+
+    if (
+      order.side === 'SELL' &&
+      !config.allowShortSelling
+    ) {
+      const position =
+        this.findPosition(
+          portfolio,
+          order.symbol,
+        );
+
+      if (
+        !position ||
+        position.quantity < order.quantity
+      ) {
+        order.status = 'REJECTED';
+
+        return null;
+      }
+    }
+
+    const executionPrice =
+      this.determineExecutionPrice(
+        order,
+        bar,
+        config,
+      );
+
+    if (
+      !Number.isFinite(
+        executionPrice,
+      ) ||
+      executionPrice <= 0
+    ) {
+      order.status = 'REJECTED';
+
+      return null;
+    }
+
+    const slippage =
+      this.calculateSlippage(
+        executionPrice,
+        order.side,
+        config,
+      );
+
+    const filledPrice =
+      order.side === 'BUY'
+        ? executionPrice + slippage
+        : executionPrice - slippage;
+
+    const notional =
+      filledPrice *
+      order.quantity;
+
+    const commission =
+      notional *
+      config.commissionRate;
+
+    const totalCost =
+      order.side === 'BUY'
+        ? notional + commission
+        : commission;
+
+    if (
+      order.side === 'BUY' &&
+      portfolio.cash < totalCost
+    ) {
+      order.status = 'REJECTED';
+
+      return null;
+    }
+
+    if (
+      order.side === 'SELL' &&
+      !config.allowShortSelling
+    ) {
+      const position =
+        this.findPosition(
+          portfolio,
+          order.symbol,
+        );
+
+      if (
+        !position ||
+        position.quantity <
+          order.quantity
+      ) {
+        order.status = 'REJECTED';
+
+        return null;
+      }
+    }
+
+    const fill: SimulationFill = {
+      orderId:
+        order.id,
+
+      symbol:
+        order.symbol,
+
+      side:
+        order.side,
+
+      quantity:
+        order.quantity,
+
+      price:
+        filledPrice,
+
+      timestamp:
+        new Date(
+          bar.timestamp,
+        ),
+
+      commission,
+
+      slippage,
+    };
+
+    this.applyFill(
+      portfolio,
+      fill,
+      config,
+    );
+
+    order.status = 'FILLED';
+
+    return fill;
+  }
+
+  /**
+   * Determines the execution price
+   * according to order type.
+   */
+  private determineExecutionPrice(
+    order: SimulationOrder,
+    bar: MarketBar,
+    config: Required<SimulationConfig>,
+  ): number {
+    switch (order.type) {
+      case 'LIMIT':
+        return this.executeLimitOrder(
+          order,
+          bar,
+        );
+
+      case 'STOP':
+        return this.executeStopOrder(
+          order,
+          bar,
+        );
+
+      case 'MARKET':
+      default:
+        return bar.close;
+    }
+  }
+
+  /**
+   * Simulates limit order execution.
+   */
+  private executeLimitOrder(
+    order: SimulationOrder,
+    bar: MarketBar,
+  ): number {
+    if (
+      order.price === undefined
+    ) {
+      return NaN;
+    }
+
+    const limitPrice =
+      order.price;
+
+    if (
+      order.side === 'BUY'
+    ) {
+      if (
+        bar.low <=
+        limitPrice
+      ) {
+        return Math.min(
+          limitPrice,
+          bar.open,
+        );
+      }
+
+      return NaN;
+    }
+
+    if (
+      bar.high >=
+      limitPrice
+    ) {
+      return Math.max(
+        limitPrice,
+        bar.open,
+      );
+    }
+
+    return NaN;
+  }
+
+  /**
+   * Simulates stop order execution.
+   */
+  private executeStopOrder(
+    order: SimulationOrder,
+    bar: MarketBar,
+  ): number {
+    if (
+      order.stopPrice === undefined
+    ) {
+      return NaN;
+    }
+
+    const stopPrice =
+      order.stopPrice;
+
+    if (
+      order.side === 'BUY'
+    ) {
+      if (
+        bar.high >=
+        stopPrice
+      ) {
+        return Math.max(
+          stopPrice,
+          bar.open,
+        );
+      }
+
+      return NaN;
+    }
+
+    if (
+      bar.low <=
+      stopPrice
+    ) {
+      return Math.min(
+        stopPrice,
+        bar.open,
+      );
+    }
+
+    return NaN;
+  }
+
+  /**
+   * Calculates simulated slippage.
+   */
+  private calculateSlippage(
+    price: number,
+    side: SimulationSide,
+    config: Required<SimulationConfig>,
+  ): number {
+    const slippage =
+      price *
+      config.slippageRate;
+
+    return side === 'BUY'
+      ? slippage
+      : slippage;
+  }
+
+  /**
+   * Applies a fill to the portfolio.
+   */
+  private applyFill(
+    portfolio: SimulationPortfolio,
+    fill: SimulationFill,
+    config: Required<SimulationConfig>,
+  ): void {
+    const position =
+      this.findPosition(
+        portfolio,
+        fill.symbol,
+      );
+
+    const notional =
+      fill.price *
+      fill.quantity;
+
+    const totalFees =
+      fill.commission;
+
+    portfolio.totalFees +=
+      totalFees;
+
+    if (
+      fill.side === 'BUY'
+    ) {
+      portfolio.cash -=
+        notional +
+        totalFees;
+    } else {
+      portfolio.cash +=
+        notional -
+        totalFees;
+    }
+
+    if (!position) {
+      portfolio.positions.push({
+        symbol:
+          fill.symbol,
+
+        side:
+          fill.side,
+
+        quantity:
+          fill.quantity,
+
+        averagePrice:
+          fill.price,
+
+        realizedPnl: 0,
+
+        unrealizedPnl: 0,
+
+        openedAt:
+          new Date(
+            fill.timestamp,
+          ),
+
+        updatedAt:
+          new Date(
+            fill.timestamp,
+          ),
+      });
+
+      return;
+    }
+
+    if (
+      position.side ===
+      fill.side
+    ) {
+      const existingValue =
+        position.averagePrice *
+        position.quantity;
+
+      const newValue =
+        fill.price *
+        fill.quantity;
+
+      const totalQuantity =
+        position.quantity +
+        fill.quantity;
+
+      position.averagePrice =
+        (
+          existingValue +
+          newValue
+        ) /
+        totalQuantity;
+
+      position.quantity =
+        totalQuantity;
+
+      position.updatedAt =
+        new Date(
+          fill.timestamp,
+        );
+
+      return;
+    }
+
+    this.reduceOrReversePosition(
+      portfolio,
+      position,
+      fill,
+    );
+  }
+
+  /**
+   * Reduces or reverses an
+   * existing position.
+   */
+  private reduceOrReversePosition(
+    portfolio: SimulationPortfolio,
+    position: SimulationPosition,
+    fill: SimulationFill,
+  ): void {
+    const closingQuantity =
+      Math.min(
+        position.quantity,
+        fill.quantity,
+      );
+
+    const pnlPerUnit =
+      position.side === 'BUY'
+        ? fill.price -
+          position.averagePrice
+        : position.averagePrice -
+          fill.price;
+
+    const realizedPnl =
+      pnlPerUnit *
+      closingQuantity;
+
+    position.realizedPnl +=
+      realizedPnl;
+
+    portfolio.realizedPnl +=
+      realizedPnl;
+
+    position.quantity -=
+      closingQuantity;
+
+    position.updatedAt =
+      new Date(
+        fill.timestamp,
+      );
+
+    const remainingQuantity =
+      fill.quantity -
+      closingQuantity;
+
+    if (
+      position.quantity === 0
+    ) {
+      const index =
+        portfolio.positions.indexOf(
+          position,
+        );
+
+      if (index >= 0) {
+        portfolio.positions.splice(
+          index,
+          1,
+        );
+      }
+    }
+
+    if (
+      remainingQuantity > 0
+    ) {
+      portfolio.positions.push({
+        symbol:
+          fill.symbol,
+
+        side:
+          fill.side,
+
+        quantity:
+          remainingQuantity,
+
+        averagePrice:
+          fill.price,
+
+        realizedPnl: 0,
+
+        unrealizedPnl: 0,
+
+        openedAt:
+          new Date(
+            fill.timestamp,
+          ),
+
+        updatedAt:
+          new Date(
+            fill.timestamp,
+          ),
+      });
+    }
+  }
+
+  /**
+   * Finds a position by symbol.
+   */
+  private findPosition(
+    portfolio: SimulationPortfolio,
+    symbol: string,
+  ): SimulationPosition | undefined {
+    return portfolio.positions.find(
+      (position) =>
+        position.symbol ===
+        symbol,
+    );
+  }
+
+  /**
+   * Updates position and portfolio
+   * valuation using the latest bar.
+   */
+  private updatePortfolioMarketValue(
+    portfolio: SimulationPortfolio,
+    bar: MarketBar,
+  ): void {
+    let unrealizedPnl = 0;
+
+    for (
+      const position of
+      portfolio.positions
+    ) {
+      if (
+        position.symbol !==
+        bar.symbol
+      ) {
+        continue;
+      }
+
+      const price =
+        bar.close;
+
+      if (
+        position.side ===
+        'BUY'
+      ) {
+        position.unrealizedPnl =
+          (
+            price -
+            position.averagePrice
+          ) *
+          position.quantity;
+      } else {
+        position.unrealizedPnl =
+          (
+            position.averagePrice -
+            price
+          ) *
+          position.quantity;
+      }
+
+      position.updatedAt =
+        new Date(
+          bar.timestamp,
+        );
+
+      unrealizedPnl +=
+        position.unrealizedPnl;
+    }
+
+    portfolio.unrealizedPnl =
+      unrealizedPnl;
+
+    portfolio.equity =
+      portfolio.cash +
+      this.calculatePositionMarketValue(
+        portfolio,
+        bar,
+      );
+
+    if (
+      portfolio.equity >
+      portfolio.peakEquity
+    ) {
+      portfolio.peakEquity =
+        portfolio.equity;
+    }
+
+    const drawdown =
+      portfolio.peakEquity -
+      portfolio.equity;
+
+    if (
+      drawdown >
+      portfolio.maxDrawdown
+    ) {
+      portfolio.maxDrawdown =
+        drawdown;
+    }
+  }
+
+  /**
+   * Calculates the current
+   * market value of positions.
+   */
+  private calculatePositionMarketValue(
+    portfolio: SimulationPortfolio,
+    bar: MarketBar,
+  ): number {
+    let marketValue = 0;
+
+    for (
+      const position of
+      portfolio.positions
+    ) {
+      if (
+        position.symbol !==
+        bar.symbol
+      ) {
+        continue;
+      }
+
+      if (
+        position.side ===
+        'BUY'
+      ) {
+        marketValue +=
+          position.quantity *
+          bar.close;
+      } else {
+        marketValue +=
+          position.quantity *
+          (
+            2 *
+            position.averagePrice -
+            bar.close
+          );
+      }
+    }
+
+    return marketValue;
+  }
+  
