@@ -14,10 +14,6 @@ name: Build Backend
 runs-on: ubuntu-latest
 
 ```
-defaults:
-  run:
-    working-directory: backend
-
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
@@ -28,18 +24,22 @@ steps:
       node-version: 22
 
   - name: Install dependencies
+    working-directory: backend
     run: npm install
 
   - name: Validate Prisma schema
+    working-directory: backend
     run: npm run prisma:validate
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
   - name: Generate Prisma client
+    working-directory: backend
     run: npm run prisma:generate
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
   - name: Build backend
+    working-directory: backend
     run: npm run build
 ```
