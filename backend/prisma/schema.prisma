@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  brokerAccounts BrokerAccount[]
+  strategies     Strategy[]
+}
+
+model BrokerAccount {
+  id          String   @id @default(uuid())
+  name        String
+  broker      String
+  accountId   String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Strategy {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  active      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model MarketData {
+  id        String   @id @default(uuid())
+  symbol    String
+  timeframe String
+  timestamp DateTime
+  open      Decimal
+  high      Decimal
+  low       Decimal
+  close     Decimal
+  volume    Decimal?
+  createdAt DateTime @default(now())
+
+  @@index([symbol, timeframe, timestamp])
+}
+
+model Trade {
+  id        String   @id @default(uuid())
+  symbol    String
+  side      String
+  quantity  Decimal
+  price     Decimal
+  status    String
+  createdAt DateTime @default(now())
+
+  @@index([symbol])
+}
+
+model BacktestResult {
+  id          String   @id @default(uuid())
+  strategy    String
+  symbol      String
+  timeframe   String
+  startDate   DateTime
+  endDate     DateTime
+  initialCash Decimal
+  finalCash   Decimal
+  profit      Decimal
+  createdAt   DateTime @default(now())
+
+  @@index([strategy])
+  @@index([symbol])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  actor     String?
+  details   String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
