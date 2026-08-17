@@ -24,13 +24,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         run: npm install
 
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: npx prisma generate --schema=../prisma/schema.prisma
 
       - name: Build backend
-        run: run: npx prisma generate --schema=../prisma/schema.prisma
+        run: npm run build
