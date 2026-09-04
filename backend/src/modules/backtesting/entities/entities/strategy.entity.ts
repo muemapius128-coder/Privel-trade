@@ -1,135 +1,30 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Index,
-} from 'typeorm';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-export enum StrategyType {
-  MANUAL = 'MANUAL',
-  AI_GENERATED = 'AI_GENERATED',
-  TEMPLATE = 'TEMPLATE',
-}
+import { BacktestingController } from './controllers/backtesting.controller';
+import { BacktestingService } from './services/backtesting.service';
+import { BacktestingRepository } from './repositories/backtesting.repository';
 
-export enum StrategyStatus {
-  DRAFT = 'DRAFT',
-  TESTING = 'TESTING',
-  ACTIVE = 'ACTIVE',
-  ARCHIVED = 'ARCHIVED',
-}
+import { Backtest } from './entities/backtest.entity';
+import { BacktestRun } from './entities/backtest-run.entity';
+import { Strategy } from './entities/entities/strategy.entity';  // ✅ Fixed path
+import { TradeResult } from './entities/trade-result.entity';
+import { EquityCurve } from './entities/equity-curve.entity';
+import { PerformanceMetrics } from './entities/performance-metrics.entity';
 
-@Entity('strategies')
-export class Strategy {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Index()
-  @Column({
-    length: 150,
-  })
-  name: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  description?: string;
-
-  @Column({
-    unique: true,
-    length: 50,
-  })
-  code: string;
-
-  @Column({
-    type: 'varchar',
-    length: 20,
-    default: StrategyType.MANUAL,
-  })
-  type: StrategyType;
-
-  @Column({
-    type: 'varchar',
-    length: 20,
-    default: StrategyStatus.DRAFT,
-  })
-  status: StrategyStatus;
-
-  @Column({
-    length: 30,
-  })
-  version: string;
-
-  @Column({
-    length: 30,
-  })
-  assetClass: string;
-
-  @Column({
-    length: 30,
-  })
-  market: string;
-
-  @Column({
-    length: 30,
-  })
-  timeframe: string;
-
-  @Column({
-    type: 'jsonb',
-    nullable: true,
-  })
-  parameters: Record<string, any>;
-
-  @Column({
-    type: 'jsonb',
-    nullable: true,
-  })
-  indicators: Record<string, any>;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  entryRules?: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  exitRules?: string;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  riskRules?: string;
-
-  @Column({
-    default: false,
-  })
-  isOptimized: boolean;
-
-  @Column({
-    default: false,
-  })
-  isPublished: boolean;
-
-  @Column({
-    nullable: true,
-  })
-  createdBy?: string;
-
-  @Column({
-    nullable: true,
-  })
-  approvedBy?: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-}
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      Backtest,
+      BacktestRun,
+      Strategy,
+      TradeResult,
+      EquityCurve,
+      PerformanceMetrics,
+    ]),
+  ],
+  controllers: [BacktestingController],
+  providers: [BacktestingService, BacktestingRepository],
+  exports: [BacktestingService, BacktestingRepository],
+})
+export class BacktestingModule {}
